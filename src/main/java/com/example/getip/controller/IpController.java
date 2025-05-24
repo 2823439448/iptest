@@ -1,27 +1,29 @@
 package com.example.getip.controller;
 
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
 
 @RestController
+@RequestMapping("/api")
 public class IpController {
 
-    @PostMapping("/report-ipv6")
+    @PostMapping("/ipv6")
     public String receiveIpv6(@RequestBody IpRequest ipRequest) {
-        // 模拟保存：打印到控制台（也可存 DB、写文件）
-        System.out.println("收到 IPv6：" + ipRequest.getIpv6() + " 时间：" + LocalDateTime.now());
-        return "已接收 IPv6 地址：" + ipRequest.getIpv6();
+        String ipv6 = ipRequest.getIp();
+        System.out.println("从客户端接收到的IPv6地址: " + ipv6);
+        return "IPv6地址已接收: " + ipv6;
     }
 
-    public static class IpRequest {
-        private String ipv6;
+    // 静态内部类用于接收JSON数据
+    static class IpRequest {
+        private String ip;
 
-        public String getIpv6() {
-            return ipv6;
+        // Getter和Setter
+        public String getIp() {
+            return ip;
         }
 
-        public void setIpv6(String ipv6) {
-            this.ipv6 = ipv6;
+        public void setIp(String ip) {
+            this.ip = ip;
         }
     }
 }
