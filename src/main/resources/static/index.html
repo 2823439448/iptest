@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPv6获取示例</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>IPv6地址获取示例</h1>
+<button onclick="getIPv6()">获取我的IPv6地址</button>
+<p id="ipDisplay"></p>
+
+<script>
+    async function getIPv6() {
+        try {
+            // 从api6.ipify.org获取IPv6地址
+            const response = await fetch('https://api6.ipify.org?format=json');
+            const data = await response.json();
+            const ipv6 = data.ip;
+
+            document.getElementById('ipDisplay').textContent = `您的IPv6地址是: ${ipv6}`;
+
+            // 发送到后端
+            sendToBackend(ipv6);
+        } catch (error) {
+            console.error('获取IPv6地址失败:', error);
+            document.getElementById('ipDisplay').textContent = '获取IPv6地址失败';
+        }
+    }
+
+    function sendToBackend(ipv6) {
+        axios.post('/api/ipv6', { ip: ipv6 })
+            .then(response => {
+                console.log('IP地址已发送到后端');
+            })
+            .catch(error => {
+                console.error('发送到后端失败:', error);
+            });
+    }
+</script>
+</body>
+</html>
