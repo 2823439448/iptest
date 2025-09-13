@@ -2,6 +2,9 @@ package com.example.getip.controller;
 
 import org.springframework.web.bind.annotation.*;
 //开发分支
+
+
+//测试
 @RestController
 @RequestMapping("/api")
 public class IpController {
